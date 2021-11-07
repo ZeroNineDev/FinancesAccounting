@@ -1,3 +1,5 @@
 <resources>
-    <string name="app_name">Finances Accounting</string>
+    <string name="app_name">Finances accounting</string>
+    <string name="loading">Loading...</string>
+
 </resources>
