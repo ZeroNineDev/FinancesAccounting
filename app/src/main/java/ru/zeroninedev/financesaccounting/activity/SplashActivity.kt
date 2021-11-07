@@ -3,6 +3,7 @@ package ru.zeroninedev.financesaccounting.activity
 import android.animation.Animator
 import android.annotation.SuppressLint
 import android.content.Intent
+import android.graphics.Color
 import android.graphics.Typeface
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
@@ -12,6 +13,10 @@ import android.view.animation.AccelerateDecelerateInterpolator
 import android.widget.ImageView
 import android.widget.LinearLayout
 import android.widget.TextView
+import lecho.lib.hellocharts.model.Line
+import lecho.lib.hellocharts.model.LineChartData
+import lecho.lib.hellocharts.model.PointValue
+import lecho.lib.hellocharts.model.ValueShape
 import lecho.lib.hellocharts.view.LineChartView
 import ru.zeroninedev.financesaccounting.databinding.ActivitySplashBinding
 import kotlin.math.hypot
@@ -91,7 +96,8 @@ class SplashActivity : AppCompatActivity() {
             override fun onAnimationEnd(p0: Animator?) {
                 Log.d(TAG, "Complete show animation")
                 animationComplete = true
-                if(loadData && animationComplete && !activityStarted){
+                //Then read about coroutines replace if to if(loadData && animationComplete && !activityStarted)
+                if(animationComplete && !activityStarted){
                     activityStarted = true
                     val intent = Intent(this@SplashActivity, MainActivity::class.java)
                     startActivity(intent)
@@ -108,6 +114,32 @@ class SplashActivity : AppCompatActivity() {
     }
 
     private fun initChart(){
+
+        val lines = arrayListOf<Line>()
+
+        for(i in 0 until NUMBER_OF_LINES){
+            val values = arrayListOf<PointValue>()
+            values.add(PointValue(0F,0F))
+            values.add(PointValue(1F,15F))
+            values.add(PointValue(2F,10F))
+            values.add(PointValue(3F,23F))
+            values.add(PointValue(3.5F,48F))
+            values.add(PointValue(5F,60F))
+
+            val line = Line(values)
+            line.color = Color.WHITE
+            line.shape = ValueShape.CIRCLE
+            line.isCubic = false
+            line.isFilled = false
+            line.setHasLabels(false)
+            line.setHasLabelsOnlyForSelected(false)
+            line.setHasLines(true)
+            line.setHasPoints(true)
+            lines.add(line)
+        }
+        val data = LineChartData(lines)
+        data.baseValue = Float.NEGATIVE_INFINITY
+        chartView.lineChartData = data
 
     }
 
@@ -137,4 +169,5 @@ class SplashActivity : AppCompatActivity() {
         private const val NUMBER_OF_LINES: Int = 1
     }
 
+    //Create coroutines then read about that
 }
