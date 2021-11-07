@@ -3,6 +3,7 @@ package ru.zeroninedev.financesaccounting.activity
 import android.animation.Animator
 import android.annotation.SuppressLint
 import android.content.Intent
+import android.graphics.Typeface
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
@@ -10,6 +11,8 @@ import android.view.ViewAnimationUtils
 import android.view.animation.AccelerateDecelerateInterpolator
 import android.widget.ImageView
 import android.widget.LinearLayout
+import android.widget.TextView
+import lecho.lib.hellocharts.view.LineChartView
 import ru.zeroninedev.financesaccounting.databinding.ActivitySplashBinding
 import kotlin.math.hypot
 
@@ -30,6 +33,10 @@ class SplashActivity : AppCompatActivity() {
     // View things
     private lateinit var imageView: ImageView
     private lateinit var linearLayout: LinearLayout
+    private lateinit var tvAppName: TextView
+    private lateinit var tvLoading: TextView
+    private lateinit var chartView: LineChartView
+
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -38,6 +45,7 @@ class SplashActivity : AppCompatActivity() {
         binding = ActivitySplashBinding.inflate(layoutInflater)
         setContentView(binding.root)
         initField()
+        initFunc()
 
     }
 
@@ -55,7 +63,7 @@ class SplashActivity : AppCompatActivity() {
     private fun startCircularReveal(){
 
         //Center point of clipping circle
-        var centerPoint = IntArray(2)
+        val centerPoint = IntArray(2)
         imageView.getLocationOnScreen(centerPoint)
         val xPoint = centerPoint[0]
         val yPoint = centerPoint[1]
@@ -99,15 +107,34 @@ class SplashActivity : AppCompatActivity() {
         })
     }
 
+    private fun initChart(){
+
+    }
+
+    private fun initFont(){
+        val typeface: Typeface = Typeface.createFromAsset(assets,"fonts/MochiyPopPOne-Regular.ttf")
+        tvLoading.typeface = typeface
+        tvAppName.typeface = typeface
+    }
+
+    private fun initFunc(){
+        initChart()
+        initFont()
+
+    }
 
     private fun initField(){
         imageView = binding.image
         linearLayout = binding.linearLayout
+        tvAppName = binding.appName
+        tvLoading = binding.loadingText
+        chartView = binding.chart
     }
 
 
     companion object{
-        private const val  TAG = "FinancesAccounting"
+        private const val TAG: String = "FinancesAccounting"
+        private const val NUMBER_OF_LINES: Int = 1
     }
 
 }
