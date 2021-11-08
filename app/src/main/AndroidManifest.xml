@@ -7,7 +7,7 @@
         android:icon="@drawable/finance_logo"
         android:label="@string/app_name"
         android:largeHeap="true"
-        android:theme="@style/Theme.FinancesAccounting">
+        android:theme="@style/AppTheme">
         <activity
             android:name=".activity.SplashActivity"
             android:exported="true" >
@@ -20,7 +20,8 @@
 
         <activity
             android:name=".activity.MainActivity"
-            android:exported="true"/>
+            android:exported="true"
+            android:theme="@style/AppThemeMain"/>
 
     </application>
 </manifest>
